@@ -1,0 +1,19 @@
+{% extends "club/base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Instructors</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+{% if instructors_list %}
+    <ul>
+    {% for i in instructors_list %}
+        <li><a href="/club/instructor/lessons/{{ i.id }}/">{{ i.sname }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No instructors are available.</p>
+{% endif %}
+{% endblock %}

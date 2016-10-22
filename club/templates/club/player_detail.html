@@ -1,0 +1,18 @@
+{% extends "club/base.html" %}
+{% load club_extras %}
+
+{% load crispy_forms_tags %}
+
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>NJBC ID:  {{ object.njbc_id }}</h3>
+<h3>Player Short Name: {{ object.sname }}</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+   <div class="row">
+   	  {% crispy form %}
+   </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "club/base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Session: Delete</h3>
+</div>
+
+{% endblock %}
+
+
+{% block content %}
+  <form method="post">
+	  {% csrf_token %}
+	  <p> Are you sure you want to delete {{ object.session_name }} ? </p>
+	  <input type="submit" value="yes"/>
+	  <a href = "{% url 'session_list'">no</a>
+  </form>
+{% endblock %}

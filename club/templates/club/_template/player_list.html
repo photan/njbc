@@ -1,0 +1,28 @@
+{% extends "club/base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Player: List</h3>
+<ol>
+	<li><a href="{% url 'player_create' %}">Create New Player</a></li>
+</ol>
+</div>
+
+
+{% endblock %}
+
+    
+
+{% block content %}
+  {% for obj in object_list %}
+        <p> 
+            {{ obj.sname }} 
+            <a href="{% url 'player_detail' obj.pk %}">Detail</a>
+        </p>
+    {% endfor %}
+
+<br>   
+<br>   
+<hr>
+<a href="{% url 'player_create' %}">Add</a>
+{% endblock %}

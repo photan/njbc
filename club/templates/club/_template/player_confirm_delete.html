@@ -1,0 +1,18 @@
+{% extends "club/base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Player: Delete</h3>
+</div>
+
+{% endblock %}
+
+
+{% block content %}
+  <form method="post">
+	  {% csrf_token %}
+	  <p> Are you sure you want to delete {{ object.sname }} ? </p>
+	  <input type="submit" value="yes"/>
+	  <a href = "{% url 'player_list'">no</a>
+  </form>
+{% endblock %}

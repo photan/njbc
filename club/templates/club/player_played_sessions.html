@@ -1,0 +1,152 @@
+{% extends "club/base.html" %}
+{% load club_extras %}
+
+
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Player: Played Sessions - {{ object.sname }} - {{today}}</h3>
+<ol>
+  
+</ol>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+
+<h2>{{play_record.month|date:"F, Y"}}</h2>
+<h3>Details</h3>
+Name: <a href="{% url 'person_detail' person.pk %}">{{ person.first_name}} {{person.last_name}}</a><p>
+{% if person.njbc_expiry_date %}
+NJBC Expiry: {{ person.njbc_expiry_date }}<p>
+{% else %}
+NJBC Membership Expiry: --UNKNOWN-CONSIDER-AS-NON-MEMBER--<p>
+{% endif %}
+
+{% if person.sibling_eldest %}
+Sibling: <a href="{% url 'player_siblings' person.pk %}">YES</a><p>
+{% else %}
+Sibling: NO<p>
+{% endif %}
+
+
+<hr>
+
+<h3>Junior Training Sessions</h3>
+{% if play_record.participations_month %}
+<div class="container-fluid">
+    <table class="table-condensed table-bordered table-striped">
+      <thead>
+        <tr>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">#</th>
+          <th class="text-center col-xs-3 col-sm-3 col-md-3 col-lg-3 bg-primary">Start Time</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Duration (hour)</th>
+          <th class="bg-primary"> Instructors</th>
+        </tr>
+      </thead>  
+      <tbody>
+{% for p in play_record.participations_month %}
+        <tr>
+           <td class="text-right" >{{ forloop.counter }} </td>
+           <td>{{ p.start_time }}</td>
+           <td>{{ p.duration_min|min2hour }}</td>
+           <td>
+           {% for i in p.session.instructors.all %}
+              {{ i.sname }}<br>
+           {% endfor %}
+           </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+    <p>
+</div> 
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Total Sessions</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Rate</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Total Time (hour)</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Total Amount</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <tr>
+           <td class="text-right" >{{play_record.participations_month_count}}</td>
+           <td class="text-center" >${{play_record.participations_month_rate|floatformat:2}}</td>
+           <td class="text-center" >{{play_record.participations_month_total_time}}</td>
+           <td class="text-right" >${{play_record.participations_month_total|floatformat:2}}</td>
+        </tr>      
+      </tbody>
+    </table>
+</div> 
+{% else %}
+   <h4>-- No session played --</h4>
+{% endif %}
+<hr>
+
+<h3>Private Sessions</h3>
+{% if play_record.participations_private_month %}
+<div class="container-fluid">
+    <table class="table table-condensed table-bordered table-striped">
+      <thead>
+        <tr>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">#</th>
+          <th class="text-center col-xs-3 col-sm-3 col-md-3 col-lg-3 bg-primary">Start Time</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Duration (hour)</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">#Persons in Class</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Rate</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Amount</th>
+          <th class="bg-primary" >Instructors</th>
+        </tr>
+      </thead>  
+      <tbody>
+{% for p in play_record.participations_private_month %}
+        <tr>
+           <td class="text-right" >{{ forloop.counter }} </td>
+           <td>{{ p.start_time }}</td>
+           <td>{{ p.duration_min|min2hour }}</td>
+           <td><a href="{% url 'session_detail' p.session_id %}"> {{ p.participations_private_month_persons_count }} </a></td>
+           <td>${{ p.participations_private_month_rate|floatformat:2 }}</td>
+           <td>${{ p.participations_private_month_total|floatformat:2  }}</td>
+           <td>
+           {% for i in p.session.instructors.all %}
+              {{ i.sname }}<br>
+           {% endfor %}
+           </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div> 
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Total Sessions</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Total Amount</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <tr>
+           <td class="text-right" >{{play_record.participations_private_month_total_count}}</td>
+           <td class="text-right" >${{play_record.participations_private_month_total|floatformat:2}}</td>
+        </tr>      
+      </tbody>
+    </table>
+</div> 
+{% else %}
+   <h4>-- No session played --</h4>
+{% endif %}
+<hr>
+{% if sibling_discount %}
+<h3>Total: ${{sibling_price|floatformat:2}} (Sibling discount 5%  to ${{grand_total|floatformat:2}})</h3>
+{% else %}
+<h3>Total: ${{grand_total|floatformat:2}}</h3>
+{% endif %}
+
+
+{% endblock %}

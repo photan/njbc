@@ -1,0 +1,19 @@
+{% extends "club/base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Current Known Players</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+{% if players_list %}
+    <ul>
+    {% for p in players_list %}
+        <li><a href="/club/person/lessons/{{ p.id }}/">{{ p.sname }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No players are available.</p>
+{% endif %}
+{% endblock %}

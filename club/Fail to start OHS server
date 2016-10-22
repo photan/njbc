@@ -1,0 +1,97 @@
+Fail to start OHS server
+
+Database user 
+Username --- APEX_050000 
+Password ---  pp1APEX$
+Username--- APEX_PUBLIC_USER
+Password --- CloudWD123
+
+For login APEX url
+Username ---- Admin
+Password ------ CloudAP3X$1
+
+ORDS Installation
+
+Username: ORDS_PUBLIC_USER:
+Password: CloudWD123
+
+WLS Servers - fpclmv0315
+
+Admin server on port 7001: https://fpclmv0315.uspp1.oraclecloud.com:7001/console
+weblogic:/cwdadmin2016
+
+OHS Servers - fpclmv0309
+
+ohs password: CwdOhs@123
+ohs node manager password: CwdOhs@123
+
+Username: ORDS_PUBLIC_USER:
+Password: CloudWD123
+
+[webtier@fpclmv0309 bin]$ ./startComponent.sh ohs1
+Starting system Component ohs1 ...
+
+Initializing WebLogic Scripting Tool (WLST) ...
+
+Welcome to WebLogic Server Administration Scripting Shell
+
+Type help() for help on available commands
+
+Reading domain from /u01/app/oracle/product/ohs/oracle_home/user_projects/domains/base_domain
+
+
+Please enter Node Manager password:
+Connecting to Node Manager ...
+Successfully Connected to Node Manager.
+Starting server ohs1 ...
+Error Starting server ohs1: weblogic.nodemanager.NMException: Received error message from Node Manager Server: [Server start command for OHS server 'ohs1' failed due to: [Failed to start the server ohs1
+Check log file /u01/app/oracle/product/ohs/oracle_home/user_projects/domains/base_domain/system_components/OHS/ohs_nm.log
+Check log file /u01/app/oracle/product/ohs/oracle_home/user_projects/domains/base_domain/servers/ohs1/logs/ohs1.log]. Please check Node Manager log and/or server 'ohs1' log for detailed information.]. Please check Node Manager log for details.
+Successfully disconnected from Node Manager.
+
+
+Exiting WebLogic Scripting Tool.
+
+Done
+[webtier@fpclmv0309 bin]$
+
+
+/u01/app/oracle/product/ohs/oracle_home/user_projects/domains/base_domain/bin
+
+
+Node Mananager Log
+/u01/app/oracle/product/ohs/oracle_home/user_projects/domains/base_domain/system_components/OHS/ohs_nm.log
+
+
+http://fpclmv0309.uspp1.oraclecloud.com:7774/apex/apex_admin
+
+# For OHS config change
+ cd /u01/app/oracle/product/ohs/oracle_home/user_projects/domains/base_domain/config/fmwconfig/components/OHS/instances/ohs1/
+
+
+STOP OHS
+ /u01/app/oracle/product/ohs/oracle_home/user_projects/domains/base_domain/bin/stopComponent.sh ohs1
+CwdOhs@123
+[webtier@fpclmv0309 bin]$ ./startComponent.sh ohs1
+Starting system Component ohs1 ...
+
+Initializing WebLogic Scripting Tool (WLST) ...
+
+Welcome to WebLogic Server Administration Scripting Shell
+
+Type help() for help on available commands
+
+Reading domain from /u01/app/oracle/product/ohs/oracle_home/user_projects/domains/base_domain
+
+
+Please enter Node Manager password:
+Connecting to Node Manager ...
+Successfully Connected to Node Manager.
+Starting server ohs1 ...
+Successfully started server ohs1 ...
+Successfully disconnected from Node Manager.
+
+
+Exiting WebLogic Scripting Tool.
+
+Done

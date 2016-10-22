@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+<h1>{{ person }}</h1>
+
+
+<br>
+<h3>Lessons Taken</h3>
+<ul>
+{% for l in person_lessons %}
+   <li><a href="/club/person/lesson/view/{{ l.id }}/">{{l.start_time}} &nbsp; -  &nbsp;{{ l }} &nbsp; &nbsp; fee: ${{l.fee_hour}}/hour for {{l.duration}} hour &nbsp; &nbsp; total: ${{l.total}}</a></li>
+{% endfor %}
+</ul>
+
+<br>
+<h3>Total: ${{total}}</h3>

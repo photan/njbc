@@ -1,0 +1,23 @@
+{% extends "club/base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Sessions</h3>
+<ol>
+	<li><a href="{% url 'session_create' %}">Create New Session</a></li>
+</ol>
+</div>
+{% endblock %}
+
+<H2>TEST</H2>
+{% block content %}
+
+   {% if object %}
+   {% else %}
+   {% endif %}
+   <form method="post">
+      {% csrf_token %}
+	  {{ form.as_p }}
+	  <input type="submit" />
+   </form>
+{% endblock %}

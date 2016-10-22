@@ -1,0 +1,13 @@
+<h1>{{ person }}</h1>
+
+
+<br>
+<h3>Lessons Provided</h3>
+<ul>
+{% for l in instructor_lessons %}
+   <li><a href="/club/instructor/lessons/{{ l.id }}/">{{l.start_time}} &nbsp; -  &nbsp;{{ l }} &nbsp; &nbsp; fee: ${{l.cost_hour}}/hour for {{l.duration}} hour &nbsp; &nbsp; total: ${{l.total}}</a></li>
+{% endfor %}
+</ul>
+
+<br>
+<h3>Total: ${{total}}</h3>

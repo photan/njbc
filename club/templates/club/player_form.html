@@ -1,0 +1,24 @@
+{% extends "club/base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Player</h3>
+<ol>
+	<li><a href="{% url 'player_create' %}">Create New Player</a></li>
+</ol>
+</div>
+{% endblock %}
+
+
+{% block content %}
+	{% if object %}
+   		<h2>Edit {{ object.sname }} </h2>
+   	{% else %}
+   		<h2>Create {{ object.sname }} </h2>
+   	{% endif %}
+   	<form method="post">
+      	{% csrf_token %}
+	  	{{ form.as_p }}
+	  	<input type="submit" />
+  	 </form>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "club/base.html" %}
+{% load club_extras %}
+
+{% block jumbotron %}
+
+<style>
+
+.table-hover tbody tr:hover td {
+    background: pink;
+}
+</style>
+<div class="jumbotron">
+<h3>Player Sibling</h3>
+<ol>
+	<li>Sibling Association: {{person.sibling_eldest}}</li>
+</ol>
+</div>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container-fluid">
+    <table class="table table-hover table-condensed table-bordered  table-striped">
+      <thead class="thead-inverse">
+        <tr>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1">#</th> 
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1">Short Name</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1">First Name</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1">Last Name</th>
+          <th  >Actions</th>
+        </tr>
+      </thead>  
+      <tbody>
+      {% for obj in siblings %}
+        <tr>
+           <td class="text-right"  style="font-size:12px;"><a href = "{% url 'person_detail' pk=obj.pk %}"> {{ forloop.counter}}</a></td>
+           <td style="font-size:12px;"><a href = "{% url 'person_detail' pk=obj.pk %}"> {{ obj.sname }}</a></td>
+           <td style="font-size:12px;">{{ obj.first_name }}</td>
+           <td style="font-size:12px;">{{ obj.last_name }}</td>
+           <td style="font-size:12px;">
+           	   <a href = "{% url 'player_played_sessions' pk=obj.pk %}">Played Sessions</a> <BR>
+           </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+{% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}    
+</div>          
+{% endblock %}
+
+

@@ -1,0 +1,41 @@
+{% extends "club/base.html" %}
+
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Session Detail: {{ object.session_name }}</h3>
+<ol>
+	<li><a href="{% url 'session_list' %}">Show Sessions</a></li>
+</ol>
+
+</div>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+  
+<p>Session Type: {{ object.session_type }}</p>
+<p>Start Time: {{ object.start_time }}</p>
+
+<br>
+        
+<h3>Instructors</h3>
+    {% for i in object.instructorparticipation_set.all %}
+        {{ i.instructor.sname }}<br>
+    {% endfor %}
+<br>
+     
+<h3>Players</h3>
+    {% for p in object.playerparticipation_set.all %}
+        {{ p.person.first_name}} {{p.person.last_name}}<br>
+    {% endfor %}
+<br>
+<hr>
+ <a href = "{% url 'session_update' pk=object.pk %}">Edit</a>  
+ <a href = "{% url 'session_delete' pk=object.pk %}">Delete</a>              
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "club/base.html" %}
+
+{% load crispy_forms_tags %}
+  
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Session Details1: {{ object.session_name }}</h3>
+</div>
+{% endblock %}
+
+
+
+{% block content %}
+   <div class="row">
+   	  {% crispy form %}
+   </div>
+{% endblock %}

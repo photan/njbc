@@ -1,0 +1,20 @@
+<h1>Session Name: {{ session }}</h1>
+<h2>Start Time: {{session.start_time}} &nbsp; &nbsp; &nbsp; &nbsp; Duration: {{session.duration_min}} min</h2>
+<h2>Court: {{session.court}}</h2>
+
+<br>
+<h3>Instructors</h3>
+<ul>
+{% for s in instructors_list %}
+   <li><a href="/club/instructor/lessons/{{ s.id }}/">{{ s.sname }}</a></li>
+{% endfor %}
+</ul>
+
+<br>
+<h3>players</h3>
+<ul>
+{% for p in players_list %}
+   <li><a href="/club/person/lessons/{{ p.id }}/">{{ p.sname }}</a></li>
+{% endfor %}
+</ul>
+

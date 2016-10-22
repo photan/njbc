@@ -1,0 +1,71 @@
+{% extends "club/base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Player: Played Sessions - {{ object.sname }} - {{today}}</h3>
+<ol>
+	
+</ol>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+
+<h2>{{play_record.month|date:"F, Y"}}</h2>
+{% if play_record.participations_month %}
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Start Time</th>
+          <th>Session Type</th>
+          <th>Instructors</th>
+        </tr>
+      </thead>  
+      <tbody>
+{% for p in play_record.participations_month %}
+        <tr>
+           <td>{{ forloop.counter }} </td>
+           <td>{{ p.start_time }}</td>
+           <td>{{ p.session.session_type }}</td>
+           <td>
+           {% for i in p.session.instructors.all %}
+              {{ i.sname }}<br>
+           {% endfor %}
+           </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div> 
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>Total sessions</th>
+          <th>Rate</th>
+          <th>Is Active Member</th>
+          <th>Total Amount</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <tr>
+           <td>{{play_record.participations_month_count}}</td>
+           <td>{{play_record.participations_month_rate}}</td>
+           <td>{{play_record.participations_month_member}}</td>
+           <td>{{play_record.participations_month_total}}</td>
+        </tr>      
+      </tbody>
+    </table>
+</div> 
+{% else %}
+   <h4>-- No session played --</h4>
+{% endif %}
+<hr>
+
+
+
+{% endblock %}

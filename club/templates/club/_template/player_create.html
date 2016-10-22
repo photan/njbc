@@ -1,0 +1,16 @@
+{% extends "club/base.html" %}
+
+{% load crispy_forms_tags %}
+
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Player: Create</h3>
+</div>
+{% endblock %}
+
+{% block content %}
+   <div class="row">
+   	  {% crispy form %}
+   </div>
+{% endblock %}

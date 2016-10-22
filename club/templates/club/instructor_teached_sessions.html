@@ -1,0 +1,218 @@
+{% extends "club/base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Instructor: Teached Sessions - {{ object.sname }} - {{today}}</h3>
+<ol>
+	
+</ol>
+</div>
+{% endblock %}
+
+
+{% block content %}
+{% for p in plist %}
+{{ forloop.counter }}  {{ p.x }}
+{% endfor %}
+
+
+<h2>{{month_0|date:"F, Y"}}</h2>
+{% if participations_month_0 %}
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Start Time</th>
+          <th>Session Type</th>
+          <th>Instructors</th>
+        </tr>
+      </thead>  
+      <tbody>
+{% for p in participations_month_0 %}
+        <tr>
+           <td>{{ forloop.counter }} </td>
+           <td>{{ p.start_time }}</td>
+           <td>{{ p.session.session_type }}</td>
+           <td>
+           {% for i in p.session.instructors.all %}
+              {{ i.sname }}<br>
+           {% endfor %}
+           </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div> 
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>Total sessions</th>
+          <th>Rate</th>
+          <th>Is Active Member</th>
+          <th>Total Amount</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <tr>
+           <td>{{participations_month_0_count}}</td>
+           <td>{{participations_month_0_rate}}</td>
+           <td>{{participations_month_0_member}}</td>
+           <td>{{participations_month_0_total}}</td>
+        </tr>      
+      </tbody>
+    </table>
+</div> 
+{% else %}
+   <h4>-- No session played --</h4>
+{% endif %}
+<hr>
+
+<h2>{{month_1|date:"F, Y"}}</h2>
+{% if participations_month_0 %}
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Start Time</th>
+          <th>Session Type</th>
+          <th>Instructors</th>
+        </tr>
+      </thead>  
+      <tbody>
+{% for p in participations_month_1 %}
+        <tr>
+           <td>{{ forloop.counter }} </td>
+           <td>{{ p.start_time }}</td>
+           <td>{{ p.session.session_type }}</td>
+           <td>
+           {% for i in p.session.instructors.all %}
+              {{ i.sname }}<br>
+           {% endfor %}
+           </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div> 
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>Total sessions</th>
+          <th>Rate</th>
+          <th>Is Active Member</th>
+          <th>Total Amount</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <tr>
+           <td>{{participations_month_1_count}}</td>
+           <td>{{participations_month_1_rate}}</td>
+           <td>{{participations_month_1_member}}</td>
+           <td>{{participations_month_1_total}}</td>
+        </tr>      
+      </tbody>
+    </table>
+</div> 
+{% else %}
+   <h4>-- No session played --</h4>
+{% endif %}
+<hr>
+
+<h2>{{month_2|date:"F, Y"}}</h2>
+{% if participations_month_2 %}
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Start Time</th>
+          <th>Session Type</th>
+          <th>Instructors</th>
+        </tr>
+      </thead>  
+      <tbody>
+{% for p in participations_month_2 %}
+        <tr>
+           <td>{{ forloop.counter }} </td>
+           <td>{{ p.start_time|date:"b-d-Y, l" }}</td>
+           <td>{{ p.session.session_type }}</td>
+           <td>
+           {% for i in p.session.instructors.all %}
+              {{ i.sname }}<br>
+           {% endfor %}
+           </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div> 
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>Total sessions</th>
+          <th>Rate</th>
+          <th>Is Active Member</th>
+          <th>Total Amount</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <tr>
+           <td>{{participations_month_2_count}}</td>
+           <td>{{participations_month_2_rate}}</td>
+           <td>{{participations_month_2_member}}</td>
+           <td>{{participations_month_2_total}}</td>
+        </tr>      
+      </tbody>
+    </table>
+</div> 
+{% else %}
+   <h4>-- No session played --</h4>
+{% endif %}
+<hr>
+
+
+{% if participations_private_month_2 %}
+<div class="container">
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Session Type</th>
+          <th>Start Time</th>
+          <th>Duration</th>
+          
+          <th>Persons Count</th>
+          <th>Instructors</th>
+        </tr>
+      </thead>  
+      <tbody>
+{% for p in participations_private_month_2 %}
+        <tr>
+           <td>{{ forloop.counter }} </td>
+           <td>{{ p.session.session_type }}</td>
+           <td>{{ p.start_time|date:"b-d-Y, l  P" }}</td>
+           <td>{{ p.session.duration_min }}</td>
+           
+           <td>{{ p.session.persons_count }}</td>
+           <td>
+           {% for i in p.session.instructors.all %}
+              {{ i.sname }}<br>
+           {% endfor %}
+           </td>
+        </tr>
+{% endfor %}
+      </tbody>
+    </table>
+</div> 
+{% else %}
+   <h4>-- No session played --</h4>
+{% endif %}
+<hr>
+
+
+{% endblock %}

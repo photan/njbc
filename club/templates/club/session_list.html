@@ -1,0 +1,117 @@
+{% extends "club/base.html" %}
+{% load club_extras %}
+
+{% block jumbotron %}
+
+<div class="jumbotron">
+<h3>Session: List</h3>
+<ol>
+	<li><a href="{% url 'session_create' %}">Create New Session: Junior Training</a></li>
+  <li><a href="{% url 'session_create_private' %}">Create New Session: Private Training</a></li>
+</ol>
+<h3>Reports</h3>
+<ol>
+	<li><a href="{% url 'session_list' %}">List current month sessions</a></li>
+  <li><a href="{% url 'session_list' %}">List last month sessions</a></li>
+	<li><a href="{% url 'session_list' %}">List sessions for specific months</a></li>
+</ol>
+</div>
+{% endblock %}
+
+
+
+{% block content %}
+<style>
+   div.center {text-align: center;}
+</style>
+
+<h2>Current Sessions (last 40 days)</h2>
+    <div class="center">
+    {% if is_paginated %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in paginator.page_range %}
+          {% if page_obj.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+    {% endif %}        
+    </div>
+<div class="container-fluid">
+    <table class="table table-hover table-condensed table-bordered  table-striped">
+      <thead class="thead-inverse">
+        <tr>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary" style="width: 5%">#</th> 
+          <th class="text-center col-xs-3 col-sm-3 col-md-3 col-lg-3 bg-primary">Session Name</th>
+          <th class="text-center col-xs-2 col-sm-2 col-md-2 col-lg-2 bg-primary" >Start Time</th>
+          
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Duration (hour)</th>
+          <th class="text-center col-xs-1 col-sm-1 col-md-1 col-lg-1 bg-primary">Instructors</th>
+          <th class="text-center col-xs-2 col-sm-2 col-md-2 col-lg-2 bg-primary">Players</th>         
+          <th class="text-center bg-primary">Action</th>
+        </tr>
+      </thead>  
+      <tbody>
+        {% for obj in session_list %}
+        <tr>
+           <td class="text-right" style="width=5%; font-size:12px;"><a href = "{% url 'session_detail' pk=obj.pk %}"> {{ page_obj.start_index|add:forloop.counter|add:"-1" }}</a></td>
+           <td style="font-size:12px;"><a href = "{% url 'session_detail' pk=obj.pk %}">{{ obj.session_name }}</a></td>
+           <td style="font-size:12px;">{{ obj.start_time }}</td>
+           
+           <td style="font-size:12px;">{{ obj.duration_min|min2hour }}</td>
+           <td style="font-size:12px;">
+           {% for i in obj.instructorparticipation_set.all %}
+           {{ i.instructor.sname }}<br>
+           {% endfor %}
+           </td>
+           <td style="font-size:12px;">
+           {% for p in obj.playerparticipation_set.all %}
+           {{ p.person.sname }}<br>
+           {% endfor %}
+           </td>
+           <td>
+               <a href = "{% url 'session_assign_player' pk=obj.pk %}">Add Player</a> <BR>
+               <a href = "{% url 'session_assign_instructor' pk=obj.pk %}">Add Instructor</a> 
+           </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="center">
+    {% if is_paginated %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in paginator.page_range %}
+          {% if page_obj.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+    {% endif %}        
+    </div>
+</div>      
+{% endblock %}

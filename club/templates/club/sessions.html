@@ -1,0 +1,22 @@
+{% extends "club/base.html" %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Sessions</h3>
+<ol>
+    <li><a href="/club/session/create/">Create New Session</a></li>
+</ol>
+</div>
+{% endblock %}
+
+{% block content %}
+{% if latest_session_list %}
+    <ul>
+    {% for s in latest_session_list %}
+        <li><a href="/club/{{ s.id }}/">{{ s.session_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No session are available.</p>
+{% endif %}
+{% endblock %}

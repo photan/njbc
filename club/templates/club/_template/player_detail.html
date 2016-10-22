@@ -1,0 +1,24 @@
+{% extends "club/base.html" %}
+
+
+{% block jumbotron %}
+<div class="jumbotron">
+<h3>Player</h3>
+<ol>
+	<li><a href="{% url 'player_create' %}">Create New player</a></li>
+</ol>
+
+</div>
+{% endblock %}
+
+
+{% block content %}
+<h2>{{ object.sname }}</h2>
+
+<br>
+<br>
+<br>
+<a href = "{% url 'player_update' pk=object.pk %}">Edit</a>  
+<a href = "{% url 'player_delete' pk=object.pk %}">Delete</a>              
+
+{% endblock %}
